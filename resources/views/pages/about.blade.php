@@ -47,5 +47,11 @@
             </div>
         </section>
 
+        <section class="text-center">
+            <h2 class="h3 fw-bold mb-3">¿Listo para empezar?</h2>
+            <p class="text-muted mb-4">Mirá la flota disponible o escribinos directamente.</p>
+            <a href="{{ route('cars.index') }}" class="btn btn-primary btn-lg me-2">Ver flota</a>
+            <a href="#" class="btn btn-outline-primary btn-lg">Contactarnos</a>
+        </section>
     </section>
 @endsection

@@ -8,6 +8,7 @@
 
             <nav class="col-md-4" aria-label="Enlaces de pie">
                 <ul class="list-unstyled mb-0">
+                    <li><a class="link-light" href="{{ route('cars.index') }}">Flota</a></li>
                     <li><a class="link-light" href="{{ route('blog.index') }}">Blog</a></li>
                     <li><a class="link-light" href="{{ route('about') }}">Nosotros</a></li>
                 </ul>

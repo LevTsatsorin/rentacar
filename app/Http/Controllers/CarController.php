@@ -16,8 +16,8 @@ class CarController extends Controller
             $query->where('transmission', $request->input('transmission'));
         }
 
-        if ($request->filled('seats')) {
-            $query->where('seats', '>=', (int) $request->input('seats'));
+        if ($request->filled('brand')) {
+            $query->where('brand', $request->input('brand'));
         }
 
         if ($request->filled('q')) {
@@ -29,8 +29,9 @@ class CarController extends Controller
         }
 
         $cars = $query->orderBy('brand')->paginate(9)->withQueryString();
+        $brands = Car::available()->select('brand')->distinct()->orderBy('brand')->pluck('brand');
 
-        return view('cars.index', compact('cars'));
+        return view('cars.index', compact('cars', 'brands'));
     }
 
     public function show(int $id): View
