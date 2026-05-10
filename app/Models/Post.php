@@ -32,4 +32,14 @@ class Post extends Model
     {
         return $query->where('is_active', true);
     }
+
+    public function getCategoryBadgeAttribute(): string
+    {
+        return match ($this->category) {
+            'consejos' => 'bg-info text-white',
+            'noticias' => 'bg-success',
+            'reviews' => 'bg-warning text-dark',
+            default => 'bg-secondary',
+        };
+    }
 }

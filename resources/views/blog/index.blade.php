@@ -39,7 +39,7 @@
                                 <img src="{{ asset('images/' . $post->image) }}" class="card-img-top" alt="{{ $post->title }}">
                             @endif
                             <div class="card-body d-flex flex-column">
-                                <span class="badge bg-secondary align-self-start mb-2">{{ $post->category }}</span>
+                                <span class="badge {{ $post->category_badge }} align-self-start mb-2">{{ $post->category }}</span>
                                 <h2 class="h5 card-title">
                                     <a href="{{ route('blog.show', $post->slug) }}" class="text-decoration-none text-dark stretched-link">
                                         {{ $post->title }}

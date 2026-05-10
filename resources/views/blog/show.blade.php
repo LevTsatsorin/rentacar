@@ -15,7 +15,7 @@
 
         <article class="mx-auto" style="max-width: 760px;">
             <header class="mb-4">
-                <span class="badge bg-secondary mb-3">{{ $post->category }}</span>
+                <span class="badge {{ $post->category_badge }} mb-3">{{ $post->category }}</span>
                 <h1 class="fw-bold mb-3">{{ $post->title }}</h1>
                 <p class="text-muted mb-0">
                     Por <strong>{{ $post->author->name }}</strong> ·

@@ -1,0 +1,21 @@
+Escuela de Arte Multimedial Da Vinci
+CARRERA: Analista de Sistemas
+MATERIA: Portales y Comercio Electrónico
+TRABAJO PRÁCTICO: Primer Parcial
+PROFESOR: Carlos Ferrer
+ALUMNO/S:
+  - Tsatsorin Lev
+  - Munasipov Ainur
+  - Pardo Katia Malena
+CUATRIMESTRE: 3
+AÑO: 2026
+TURNO: Tarde
+COMISIÓN: ACT3AP
+
+PASOS PARA EJECUTAR:
+1. composer install
+2. cp .env.example .env
+3. Configurar DB_DATABASE, DB_USERNAME y DB_PASSWORD en .env
+4. php artisan key:generate
+5. php artisan migrate --seed
+6. php artisan serve
