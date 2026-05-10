@@ -24,6 +24,9 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">Nosotros</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Contacto</a>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -11,6 +11,7 @@
                     <li><a class="link-light" href="{{ route('cars.index') }}">Flota</a></li>
                     <li><a class="link-light" href="{{ route('blog.index') }}">Blog</a></li>
                     <li><a class="link-light" href="{{ route('about') }}">Nosotros</a></li>
+                    <li><a class="link-light" href="{{ route('contact') }}">Contacto</a></li>
                 </ul>
             </nav>
 

@@ -63,6 +63,9 @@
                     </section>
                 @endif
 
+                <a href="{{ route('contact', ['car' => $car->id]) }}" class="btn btn-primary btn-lg w-100" @disabled(!$car->is_available)>
+                    <i class="bi bi-calendar-check"></i> Reservar este auto
+                </a>
             </div>
         </article>
     </section>
