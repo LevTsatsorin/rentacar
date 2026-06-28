@@ -15,7 +15,7 @@
 
         <article class="mx-auto" style="max-width: 760px;">
             <header class="mb-4">
-                <span class="badge {{ $post->category_badge }} mb-3">{{ $post->category }}</span>
+                <span class="badge {{ $post->category->badge }} mb-3">{{ $post->category->name }}</span>
                 <h1 class="fw-bold mb-3">{{ $post->title }}</h1>
                 <p class="text-muted mb-0">
                     Por <strong>{{ $post->author->name }}</strong> ·
@@ -36,6 +36,18 @@
             <div class="post-content">
                 {!! nl2br(e($post->content)) !!}
             </div>
+
+            @if ($post->tags->isNotEmpty())
+                <footer class="mt-4">
+                    <ul class="list-inline mb-0" aria-label="Etiquetas">
+                        @foreach ($post->tags as $tag)
+                            <li class="list-inline-item">
+                                <span class="badge text-bg-light border">#{{ $tag->name }}</span>
+                            </li>
+                        @endforeach
+                    </ul>
+                </footer>
+            @endif
 
             <footer class="mt-5 pt-4 border-top">
                 <a href="{{ route('blog.index') }}" class="btn btn-outline-primary">

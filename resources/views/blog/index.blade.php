@@ -6,7 +6,7 @@
 @section('content')
     <section class="container py-5">
         <header class="mb-4">
-            <h1 class="fw-bold">Blog & Novedades</h1>
+            <h1 class="fw-bold">Blog &amp; Novedades</h1>
             <p class="text-muted">Consejos para tu próximo alquiler, novedades de la flota y reviews.</p>
         </header>
 
@@ -18,9 +18,9 @@
                     </li>
                     @foreach ($categories as $category)
                         <li class="nav-item">
-                            <a class="nav-link {{ request('category') === $category ? 'active' : '' }}"
-                               href="{{ route('blog.index', ['category' => $category]) }}">
-                                {{ ucfirst($category) }}
+                            <a class="nav-link {{ request('category') === $category->slug ? 'active' : '' }}"
+                               href="{{ route('blog.index', ['category' => $category->slug]) }}">
+                                {{ $category->name }}
                             </a>
                         </li>
                     @endforeach
@@ -39,7 +39,7 @@
                                 <img src="{{ asset('images/' . $post->image) }}" class="card-img-top" alt="{{ $post->title }}">
                             @endif
                             <div class="card-body d-flex flex-column">
-                                <span class="badge {{ $post->category_badge }} align-self-start mb-2">{{ $post->category }}</span>
+                                <span class="badge {{ $post->category->badge }} align-self-start mb-2">{{ $post->category->name }}</span>
                                 <h2 class="h5 card-title">
                                     <a href="{{ route('blog.show', $post->slug) }}" class="text-decoration-none text-dark stretched-link">
                                         {{ $post->title }}

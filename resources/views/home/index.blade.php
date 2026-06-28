@@ -97,7 +97,7 @@
                                 <img src="{{ asset('images/' . $post->image) }}" class="card-img-top" alt="{{ $post->title }}">
                             @endif
                             <div class="card-body">
-                                <span class="badge {{ $post->category_badge }} mb-2">{{ $post->category }}</span>
+                                <span class="badge {{ $post->category->badge }} mb-2">{{ $post->category->name }}</span>
                                 <h3 class="h5 card-title">{{ $post->title }}</h3>
                                 <p class="text-muted small">{{ $post->excerpt }}</p>
                                 <a href="{{ route('blog.show', $post->slug) }}" class="stretched-link">Leer más</a>
