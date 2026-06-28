@@ -8,8 +8,17 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ * Controlador del blog (listado y detalle de publicaciones).
+ */
 class BlogController extends Controller
 {
+    /**
+     * Lista las publicaciones publicadas con filtro opcional por categoría.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
     public function index(Request $request): View
     {
         $query = Post::published()->with(['author', 'category']);
@@ -24,6 +33,14 @@ class BlogController extends Controller
         return view('blog.index', compact('posts', 'categories'));
     }
 
+    /**
+     * Muestra el detalle de una publicación a partir de su slug.
+     *
+     * @param  string  $slug
+     * @return \Illuminate\View\View
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     */
     public function show(string $slug): View
     {
         $post = Post::published()

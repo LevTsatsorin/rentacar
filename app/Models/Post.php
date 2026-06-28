@@ -10,10 +10,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * Entrada (post) del blog de la plataforma.
+ */
 class Post extends Model
 {
     use SoftDeletes;
 
+    /**
+     * Atributos asignables masivamente.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'title',
         'slug',
@@ -25,25 +33,51 @@ class Post extends Model
         'is_active',
     ];
 
+    /**
+     * Conversiones de tipo de los atributos.
+     *
+     * @var array<string, string>
+     */
     protected $casts = [
         'is_active' => 'boolean',
     ];
 
+    /**
+     * Autor (usuario) que escribió el post.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');
     }
 
+    /**
+     * Categoría a la que pertenece el post.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
+    /**
+     * Etiquetas asociadas al post.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class);
     }
 
+    /**
+     * Filtra únicamente los posts publicados (activos).
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public function scopePublished(Builder $query): Builder
     {
         return $query->where('is_active', true);

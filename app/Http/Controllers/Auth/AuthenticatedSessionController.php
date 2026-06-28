@@ -9,13 +9,29 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
+/**
+ * Gestiona el inicio y cierre de sesión de los usuarios.
+ */
 class AuthenticatedSessionController extends Controller
 {
+    /**
+     * Muestra el formulario de inicio de sesión.
+     *
+     * @return \Illuminate\View\View
+     */
     public function create(): View
     {
         return view('auth.login');
     }
 
+    /**
+     * Autentica al usuario y lo redirige según su rol.
+     *
+     * @param  \App\Http\Requests\Auth\LoginRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
@@ -27,6 +43,12 @@ class AuthenticatedSessionController extends Controller
         );
     }
 
+    /**
+     * Cierra la sesión del usuario e invalida la sesión actual.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Request $request): RedirectResponse
     {
         Auth::logout();

@@ -7,8 +7,20 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * Lógica de negocio para crear, actualizar y eliminar posts del blog.
+ */
 class PostService
 {
+    /**
+     * Crea un post junto con su imagen y etiquetas asociadas.
+     *
+     * @param  array  $data
+     * @param  \Illuminate\Http\UploadedFile|null  $image
+     * @return \App\Models\Post
+     *
+     * @throws \Throwable
+     */
     public function create(array $data, ?UploadedFile $image): Post
     {
         $data['image'] = $image?->store('posts', 'public');
@@ -30,6 +42,16 @@ class PostService
         }
     }
 
+    /**
+     * Actualiza un post y, si corresponde, reemplaza su imagen y etiquetas.
+     *
+     * @param  \App\Models\Post  $post
+     * @param  array  $data
+     * @param  \Illuminate\Http\UploadedFile|null  $image
+     * @return \App\Models\Post
+     *
+     * @throws \Throwable
+     */
     public function update(Post $post, array $data, ?UploadedFile $image): Post
     {
         $oldImage = $post->image;
@@ -62,6 +84,12 @@ class PostService
         return $post;
     }
 
+    /**
+     * Elimina un post.
+     *
+     * @param  \App\Models\Post  $post
+     * @return void
+     */
     public function delete(Post $post): void
     {
         $post->delete();

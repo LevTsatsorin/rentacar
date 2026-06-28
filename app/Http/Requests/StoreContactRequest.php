@@ -4,13 +4,26 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Valida los datos del formulario de contacto.
+ */
 class StoreContactRequest extends FormRequest
 {
+    /**
+     * Determina si el usuario está autorizado a realizar esta solicitud.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * Reglas de validación aplicadas al formulario de contacto.
+     *
+     * @return array
+     */
     public function rules(): array
     {
         return [

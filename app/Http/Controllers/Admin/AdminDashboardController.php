@@ -9,8 +9,16 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\View\View;
 
+/**
+ * Muestra el panel de administración con estadísticas generales.
+ */
 class AdminDashboardController extends Controller
 {
+    /**
+     * Muestra el panel con el conteo de entradas, usuarios, autos y reservas.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index(): View
     {
         $stats = [

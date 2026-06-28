@@ -5,8 +5,16 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 
+/**
+ * Valida los datos para la creación de un post del blog.
+ */
 class StorePostRequest extends FormRequest
 {
+    /**
+     * Determina si el usuario está autorizado a realizar esta solicitud.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;
@@ -21,6 +29,11 @@ class StorePostRequest extends FormRequest
         ]);
     }
 
+    /**
+     * Reglas de validación aplicadas a la creación del post.
+     *
+     * @return array
+     */
     public function rules(): array
     {
         return [
