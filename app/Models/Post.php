@@ -5,16 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'title',
         'slug',
         'excerpt',
         'content',
         'image',
-        'category',
+        'category_id',
         'author_id',
         'is_active',
     ];
@@ -28,18 +32,18 @@ class Post extends Model
         return $this->belongsTo(User::class, 'author_id');
     }
 
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
     public function scopePublished(Builder $query): Builder
     {
         return $query->where('is_active', true);
-    }
-
-    public function getCategoryBadgeAttribute(): string
-    {
-        return match ($this->category) {
-            'consejos' => 'bg-info text-white',
-            'noticias' => 'bg-success',
-            'reviews' => 'bg-warning text-dark',
-            default => 'bg-secondary',
-        };
     }
 }

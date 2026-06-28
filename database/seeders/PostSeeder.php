@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +16,9 @@ class PostSeeder extends Seeder
         $lucia = User::where('email', 'lucia@rentacar.test')->firstOrFail();
         $martin = User::where('email', 'martin@rentacar.test')->firstOrFail();
 
+        $categories = Category::pluck('id', 'slug');
+        $tags = Tag::pluck('id', 'slug');
+
         $posts = [
             [
                 'title' => 'Cómo elegir el auto ideal para tu próximo viaje',
@@ -24,6 +29,7 @@ class PostSeeder extends Seeder
                 'category' => 'consejos',
                 'author_id' => $admin->id,
                 'is_active' => true,
+                'tags' => ['ciudad', 'ruta', 'familia'],
             ],
             [
                 'title' => 'Novedades en nuestra flota: llegan los modelos 2024',
@@ -34,6 +40,7 @@ class PostSeeder extends Seeder
                 'category' => 'noticias',
                 'author_id' => $lucia->id,
                 'is_active' => true,
+                'tags' => ['suv', 'mantenimiento'],
             ],
             [
                 'title' => 'Review: Volkswagen Golf 2023 — una semana al volante',
@@ -44,6 +51,7 @@ class PostSeeder extends Seeder
                 'category' => 'reviews',
                 'author_id' => $martin->id,
                 'is_active' => true,
+                'tags' => ['ruta', 'ahorro'],
             ],
             [
                 'title' => 'Consejos para alquilar un auto por primera vez',
@@ -54,6 +62,7 @@ class PostSeeder extends Seeder
                 'category' => 'consejos',
                 'author_id' => $admin->id,
                 'is_active' => true,
+                'tags' => ['seguros', 'ahorro'],
             ],
             [
                 'title' => 'Promoción de invierno: 20% off en alquileres semanales',
@@ -64,6 +73,7 @@ class PostSeeder extends Seeder
                 'category' => 'noticias',
                 'author_id' => $lucia->id,
                 'is_active' => true,
+                'tags' => ['promociones', 'ahorro'],
             ],
             [
                 'title' => 'Borrador interno: nuevas tarifas (no publicar)',
@@ -74,11 +84,17 @@ class PostSeeder extends Seeder
                 'category' => 'noticias',
                 'author_id' => $admin->id,
                 'is_active' => false,
+                'tags' => [],
             ],
         ];
 
         foreach ($posts as $data) {
-            Post::updateOrCreate(['slug' => $data['slug']], $data);
+            $tagSlugs = $data['tags'];
+            $data['category_id'] = $categories[$data['category']];
+            unset($data['tags'], $data['category']);
+
+            $post = Post::updateOrCreate(['slug' => $data['slug']], $data);
+            $post->tags()->sync($tags->only($tagSlugs)->values()->all());
         }
     }
 }
