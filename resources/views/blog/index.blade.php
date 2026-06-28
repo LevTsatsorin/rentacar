@@ -35,8 +35,8 @@
                 @foreach ($posts as $post)
                     <article class="col-md-6 col-lg-4">
                         <div class="card h-100 shadow-sm">
-                            @if ($post->image)
-                                <img src="{{ asset('images/' . $post->image) }}" class="card-img-top" alt="{{ $post->title }}">
+                            @if ($post->image_url)
+                                <img src="{{ $post->image_url }}" class="card-img-top" alt="{{ $post->title }}">
                             @endif
                             <div class="card-body d-flex flex-column">
                                 <span class="badge {{ $post->category->badge }} align-self-start mb-2">{{ $post->category->name }}</span>

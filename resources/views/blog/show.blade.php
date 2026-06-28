@@ -25,8 +25,8 @@
                 </p>
             </header>
 
-            @if ($post->image)
-                <img src="{{ asset('images/' . $post->image) }}" class="img-fluid rounded shadow-sm mb-4 w-100" alt="{{ $post->title }}">
+            @if ($post->image_url)
+                <img src="{{ $post->image_url }}" class="img-fluid rounded shadow-sm mb-4 w-100" alt="{{ $post->title }}">
             @endif
 
             @if ($post->excerpt)

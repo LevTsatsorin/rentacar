@@ -9,6 +9,10 @@
            href="{{ route('admin.dashboard') }}">
             <i class="bi bi-speedometer2 me-2"></i>Panel
         </a>
+        <a class="nav-link text-white {{ request()->routeIs('admin.posts.*') ? 'active' : '' }}"
+           href="{{ route('admin.posts.index') }}">
+            <i class="bi bi-newspaper me-2"></i>Blog
+        </a>
     </nav>
 
     <div class="mt-auto pt-3 border-top border-secondary">

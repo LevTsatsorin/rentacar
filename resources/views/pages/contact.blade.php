@@ -77,24 +77,38 @@
                     </article>
                 @endif
 
-                <form class="card card-body bg-light">
+                @include('partials.flash')
+
+                @error('car_id')
+                    <div class="alert alert-danger" role="alert">{{ $message }}</div>
+                @enderror
+
+                <form method="POST" action="{{ route('contact.store') }}" class="card card-body bg-light" novalidate>
+                    @csrf
                     @if ($selectedCar)
                         <input type="hidden" name="car_id" value="{{ $selectedCar->id }}">
                     @endif
                     <div class="mb-3">
                         <label for="name" class="form-label">Nombre</label>
-                        <input type="text" id="name" name="name" class="form-control" required>
+                        <input type="text" id="name" name="name"
+                               class="form-control @error('name') is-invalid @enderror"
+                               value="{{ old('name') }}" required>
+                        @error('name') <span class="invalid-feedback d-block">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" id="email" name="email" class="form-control" required>
+                        <input type="email" id="email" name="email"
+                               class="form-control @error('email') is-invalid @enderror"
+                               value="{{ old('email') }}" required>
+                        @error('email') <span class="invalid-feedback d-block">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
                         <label for="message" class="form-label">Mensaje</label>
-                        <textarea id="message" name="message" class="form-control" rows="5" required>@if ($selectedCar)Hola, quisiera consultar por el alquiler del {{ $selectedCar->full_name }}.@endif</textarea>
+                        <textarea id="message" name="message" rows="5"
+                                  class="form-control @error('message') is-invalid @enderror" required>{{ old('message', $selectedCar ? 'Hola, quisiera consultar por el alquiler del '.$selectedCar->full_name.'.' : '') }}</textarea>
+                        @error('message') <span class="invalid-feedback d-block">{{ $message }}</span> @enderror
                     </div>
-                    <button type="submit" class="btn btn-primary" disabled>Enviar (demo)</button>
-                    <p class="form-text">Formulario de demostración — el envío se implementará más adelante.</p>
+                    <button type="submit" class="btn btn-primary">Enviar consulta</button>
                 </form>
             </section>
         </div>

@@ -93,8 +93,8 @@
                 @foreach ($latestPosts as $post)
                     <article class="col-md-4">
                         <div class="card h-100 shadow-sm">
-                            @if ($post->image)
-                                <img src="{{ asset('images/' . $post->image) }}" class="card-img-top" alt="{{ $post->title }}">
+                            @if ($post->image_url)
+                                <img src="{{ $post->image_url }}" class="card-img-top" alt="{{ $post->title }}">
                             @endif
                             <div class="card-body">
                                 <span class="badge {{ $post->category->badge }} mb-2">{{ $post->category->name }}</span>
