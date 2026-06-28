@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminPostController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ContactController;
@@ -29,4 +30,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('posts', AdminPostController::class)->except('show');
     Route::post('posts/{post}/restore', [AdminPostController::class, 'restore'])
         ->name('posts.restore')->withTrashed();
+    Route::get('users', [AdminUserController::class, 'index'])->name('users.index');
+    Route::get('users/{user}', [AdminUserController::class, 'show'])->name('users.show');
 });
