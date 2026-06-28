@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreContactRequest;
 use App\Models\Car;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -17,5 +19,10 @@ class ContactController extends Controller
             : null;
 
         return view('pages.contact', compact('availableCars', 'selectedCar'));
+    }
+
+    public function store(StoreContactRequest $request): RedirectResponse
+    {
+        return back()->with('success', 'Tu consulta fue enviada. Te responderemos a la brevedad.');
     }
 }

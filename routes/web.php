@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminPostController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ContactController;
@@ -19,9 +20,13 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
 Route::view('/about', 'pages.about')->name('about');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 require __DIR__.'/auth.php';
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::resource('posts', AdminPostController::class)->except('show');
+    Route::post('posts/{post}/restore', [AdminPostController::class, 'restore'])
+        ->name('posts.restore')->withTrashed();
 });
