@@ -1,7 +1,7 @@
 Escuela de Arte Multimedial Da Vinci
 CARRERA: Analista de Sistemas
 MATERIA: Portales y Comercio Electrónico
-TRABAJO PRÁCTICO: Primer Parcial
+TRABAJO PRÁCTICO: Segundo Parcial
 PROFESOR: Carlos Ferrer
 ALUMNO/S:
   - Tsatsorin Lev
@@ -15,7 +15,12 @@ COMISIÓN: ACT3AP
 PASOS PARA EJECUTAR:
 1. composer install
 2. cp .env.example .env
-3. Configurar DB_DATABASE, DB_USERNAME y DB_PASSWORD en .env
-4. php artisan key:generate
-5. php artisan migrate --seed
-6. php artisan serve
+3. php artisan key:generate
+4. Configurar DB_DATABASE, DB_USERNAME y DB_PASSWORD en .env
+5. php artisan migrate:fresh --seed
+6. php artisan storage:link
+7. php artisan serve
+
+USUARIOS DE PRUEBA (cargados por Seeder):
+- admin@rentacar.test   / password   (rol administrador)
+- cliente@rentacar.test / password   (rol usuario, con alquiler contratado)

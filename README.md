@@ -1,6 +1,8 @@
 # RentaCar
 
-Sitio web de alquiler de autos desarrollado con **Laravel 12**. Trabajo Práctico para la materia **Producción Web**.
+Sitio web de alquiler de autos desarrollado con **Laravel 12**. Trabajo Práctico para la materia **Portales y Comercio Electrónico**.
+
+Incluye un sitio público (inicio, flota, blog y contacto), registro e inicio de sesión de usuarios, y un panel de administración protegido por rol con ABM del blog (carga y cambio de imágenes) y listado de usuarios con sus alquileres contratados.
 
 ## Requisitos
 
@@ -27,17 +29,29 @@ composer install
 # 2. Copiar el archivo de entorno
 cp .env.example .env
 
-# 3. Configurar la conexión a la base de datos en .env
-#    DB_DATABASE, DB_USERNAME, DB_PASSWORD
-
-# 4. Generar la clave de la aplicación
+# 3. Generar la clave de la aplicación
 php artisan key:generate
 
-# 5. Ejecutar migraciones y seeders
-php artisan migrate --seed
+# 4. Configurar la conexión a la base de datos en .env
+#    DB_DATABASE, DB_USERNAME, DB_PASSWORD
 
-# 6. Levantar el servidor de desarrollo
+# 5. Ejecutar migraciones y seeders
+php artisan migrate:fresh --seed
+
+# 6. Enlazar el almacenamiento público (imágenes del blog)
+php artisan storage:link
+
+# 7. Levantar el servidor de desarrollo
 php artisan serve
 ```
 
 El sitio queda disponible en **http://localhost:8000**.
+
+## Usuarios de prueba (cargados por el seeder)
+
+| Rol | Email | Contraseña |
+|-----|-------|------------|
+| Administrador | `admin@rentacar.test` | `password` |
+| Usuario | `cliente@rentacar.test` | `password` |
+
+El panel de administración está en **`/admin`** y requiere iniciar sesión con el usuario administrador.
