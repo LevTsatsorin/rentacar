@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ContactController;
@@ -18,3 +19,9 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
 Route::view('/about', 'pages.about')->name('about');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+
+require __DIR__.'/auth.php';
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+});
