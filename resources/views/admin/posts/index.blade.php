@@ -5,7 +5,7 @@
 
 @section('content')
     <section aria-labelledby="posts-title">
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <header class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <h2 id="posts-title" class="h4 mb-1">Entradas del blog</h2>
                 <p class="text-muted mb-0">Crear, editar, publicar y eliminar entradas.</p>
@@ -13,7 +13,7 @@
             <a href="{{ route('admin.posts.create') }}" class="btn btn-primary">
                 <i class="bi bi-plus-lg" aria-hidden="true"></i> Nueva entrada
             </a>
-        </div>
+        </header>
 
         @if ($posts->isEmpty())
             <p class="alert alert-info">Todavía no hay entradas. Creá la primera.</p>

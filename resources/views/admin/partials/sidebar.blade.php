@@ -13,6 +13,10 @@
            href="{{ route('admin.posts.index') }}">
             <i class="bi bi-newspaper me-2"></i>Blog
         </a>
+        <a class="nav-link text-white {{ request()->routeIs('admin.users.*') ? 'active' : '' }}"
+           href="{{ route('admin.users.index') }}">
+            <i class="bi bi-people me-2"></i>Usuarios
+        </a>
     </nav>
 
     <div class="mt-auto pt-3 border-top border-secondary">
