@@ -30,7 +30,7 @@ class StoreBookingRequest extends FormRequest
         return [
             'start_date' => ['required', 'date', 'after_or_equal:today'],
             'end_date' => ['required', 'date', 'after:start_date'],
-            'plan_id' => ['nullable', 'exists:plans,id'],
+            'plan_id' => ['nullable', 'exists:plans,id,is_active,1'],
         ];
     }
 

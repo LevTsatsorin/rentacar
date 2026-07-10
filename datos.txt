@@ -1,7 +1,7 @@
 Escuela de Arte Multimedial Da Vinci
 CARRERA: Analista de Sistemas
 MATERIA: Portales y Comercio Electrónico
-TRABAJO PRÁCTICO: Segundo Parcial
+TRABAJO PRÁCTICO: Examen Final
 PROFESOR: Carlos Ferrer
 ALUMNO/S:
   - Tsatsorin Lev
@@ -23,4 +23,21 @@ PASOS PARA EJECUTAR:
 
 USUARIOS DE PRUEBA (cargados por Seeder):
 - admin@rentacar.test   / password   (rol administrador)
-- cliente@rentacar.test / password   (rol usuario, con alquiler contratado)
+- cliente@rentacar.test / password   (rol usuario, con reservas contratadas)
+
+MERCADOPAGO (sandbox - opcional, para el circuito de pago):
+El circuito de contratacion funciona SIN MercadoPago: si no hay credenciales,
+la reserva se registra directamente como confirmada.
+
+Para probar el pago online en modo prueba, cargar en .env las credenciales
+DE PRUEBA de MercadoPago (Checkout Pro) y ejecutar "php artisan config:clear":
+  MP_ACCESS_TOKEN=APP_USR-7931270434699437-071000-e64374af22086f33d91c8b5a1fee1685-3530416733
+  MP_PUBLIC_KEY=APP_USR-873fe2c5-bf1c-46b2-8d11-e1be77221bdb
+
+Comprador de prueba (en el checkout elegir "Ingresar con mi cuenta"):
+  Usuario:    TESTUSER8528398654841012589
+  Contrasena: 31se7yLL47
+
+En localhost, tras aprobar el pago, usar el boton "Ya pague - verificar estado"
+en la reserva para sincronizar el resultado.
+Para probar el retorno automatico + webhook end-to-end, ver README.md (seccion ngrok).

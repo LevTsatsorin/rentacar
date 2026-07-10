@@ -13,7 +13,9 @@
                     <header class="card-header bg-white border-0 pt-4 px-4">
                         <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
                             <div>
-                                <h1 class="h3 fw-bold mb-1">Reserva confirmada</h1>
+                                <h1 class="h3 fw-bold mb-1">
+                                    {{ $booking->status === 'confirmed' ? '¡Reserva confirmada!' : 'Reserva registrada' }}
+                                </h1>
                                 <p class="text-muted mb-0">Comprobante #{{ $booking->id }}</p>
                             </div>
                             <span class="badge {{ $booking->status_badge }} fs-6">{{ $booking->status_label }}</span>
@@ -40,8 +42,21 @@
                     </div>
 
                     <footer class="card-footer bg-white border-0 px-4 pb-4 d-flex flex-wrap gap-2">
-                        <a href="{{ route('cars.index') }}" class="btn btn-outline-secondary">
-                            <i class="bi bi-arrow-left" aria-hidden="true"></i> Seguir explorando la flota
+                        @if ($booking->status === 'pending' && config('services.mercadopago.enabled'))
+                            <a href="{{ route('payments.checkout', $booking) }}" class="btn btn-primary">
+                                <i class="bi bi-credit-card" aria-hidden="true"></i> Pagar con MercadoPago
+                            </a>
+                            @unless (request()->secure())
+                                <form method="POST" action="{{ route('payments.refresh', $booking) }}" class="d-inline">
+                                    @csrf
+                                    <button type="submit" class="btn btn-outline-primary">
+                                        <i class="bi bi-arrow-clockwise" aria-hidden="true"></i> Ya pagué — verificar estado
+                                    </button>
+                                </form>
+                            @endunless
+                        @endif
+                        <a href="{{ route('bookings.index') }}" class="btn btn-outline-secondary">
+                            <i class="bi bi-list-ul" aria-hidden="true"></i> Ver mis reservas
                         </a>
                     </footer>
                 </article>

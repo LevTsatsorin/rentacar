@@ -31,6 +31,17 @@ class BookingService
 
         $start = Carbon::parse($data['start_date']);
         $end = Carbon::parse($data['end_date']);
+
+        $overlaps = Booking::where('car_id', $car->id)
+            ->where('status', '!=', 'cancelled')
+            ->where('start_date', '<=', $end)
+            ->where('end_date', '>=', $start)
+            ->exists();
+
+        if ($overlaps) {
+            throw new \RuntimeException('El vehículo ya está reservado para las fechas seleccionadas.');
+        }
+
         $days = max(1, $start->diffInDays($end));
 
         $plan = ! empty($data['plan_id']) ? Plan::find($data['plan_id']) : null;
@@ -42,7 +53,7 @@ class BookingService
             'start_date' => $start,
             'end_date' => $end,
             'total_price' => round($days * (float) $car->daily_price * $multiplier, 2),
-            'status' => 'confirmed',
+            'status' => config('services.mercadopago.enabled') ? 'pending' : 'confirmed',
         ]);
     }
 }

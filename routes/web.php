@@ -8,6 +8,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,7 +37,17 @@ Route::middleware('auth')->group(function () {
     Route::get('perfil', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('perfil/editar', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('perfil', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::get('reservas/{booking}/pagar', [PaymentController::class, 'checkout'])->name('payments.checkout');
+    Route::post('reservas/{booking}/verificar-pago', [PaymentController::class, 'refresh'])->name('payments.refresh');
 });
+
+// Retornos de MercadoPago (fuera de 'auth' para no perder el retorno del checkout;
+// la pertenencia de la reserva se valida dentro del controlador vía Auth::id()).
+Route::get('pago/exito', [PaymentController::class, 'success'])->name('payments.success');
+Route::get('pago/error', [PaymentController::class, 'failure'])->name('payments.failure');
+Route::get('pago/pendiente', [PaymentController::class, 'pending'])->name('payments.pending');
+Route::post('webhooks/mercadopago', [PaymentController::class, 'webhook'])->name('payments.webhook');
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');

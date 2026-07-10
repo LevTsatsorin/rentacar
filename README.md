@@ -55,3 +55,40 @@ El sitio queda disponible en **http://localhost:8000**.
 | Usuario | `cliente@rentacar.test` | `password` |
 
 El panel de administración está en **`/admin`** y requiere iniciar sesión con el usuario administrador.
+
+## Pagos con MercadoPago (sandbox — opcional)
+
+El circuito de contratación funciona **sin** MercadoPago: si no se configuran credenciales, la reserva se registra directamente como **confirmada**.
+
+Para activar el pago online en modo de prueba, completar en `.env` las credenciales **de prueba** de una aplicación de MercadoPago (Checkout Pro):
+
+```env
+MP_ACCESS_TOKEN=APP_USR-...   # Access Token de PRUEBA
+MP_PUBLIC_KEY=APP_USR-...     # Public Key de PRUEBA
+```
+
+Luego `php artisan config:clear`. Con esto, al reservar la reserva queda **pendiente** y aparece el botón **"Pagar con MercadoPago"**.
+
+Para pagar en el sandbox, en el checkout elegir **"Ingresar con mi cuenta"** e iniciar sesión con una **cuenta de prueba de comprador** de MercadoPago (usuario y contraseña incluidos en `datos.txt`). En `localhost`, tras aprobar el pago se usa el botón **"Ya pagué — verificar estado"** de la reserva para sincronizar el resultado.
+
+### Probar el webhook end-to-end (URL pública con ngrok)
+
+En `localhost` MercadoPago no puede alcanzar el webhook ni redirigir automáticamente. Para verificar el retorno automático y el **webhook** de punta a punta, exponer el sitio con [ngrok](https://ngrok.com/):
+
+```bash
+# 1. Levantar el servidor local
+php artisan serve --port=8000
+
+# 2. En otra terminal, exponerlo con ngrok
+ngrok http 8000
+```
+
+ngrok muestra una URL pública, por ejemplo `https://xxxxxxxx.ngrok-free.dev`. Configurarla en `.env`:
+
+```env
+APP_URL=https://xxxxxxxx.ngrok-free.dev
+```
+
+Luego `php artisan config:clear` y **acceder al sitio desde esa URL de ngrok** (no desde `localhost`). Al pagar, MercadoPago redirige automáticamente a la página de éxito y notifica el pago por webhook, confirmando la reserva sin intervención manual.
+
+> La URL gratuita de ngrok cambia en cada reinicio; hay que actualizar `APP_URL` cada vez. Para la entrega, dejar `APP_URL=http://localhost:8000`.

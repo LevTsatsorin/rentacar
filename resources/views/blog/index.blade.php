@@ -31,7 +31,7 @@
         @if ($posts->isEmpty())
             <p class="alert alert-warning">Aún no hay entradas publicadas en esta categoría.</p>
         @else
-            <section class="row g-4">
+            <div class="row g-4">
                 @foreach ($posts as $post)
                     <article class="col-md-6 col-lg-4">
                         <div class="card h-100 shadow-sm">
@@ -53,7 +53,7 @@
                         </div>
                     </article>
                 @endforeach
-            </section>
+            </div>
 
             <nav aria-label="Paginación" class="mt-5">
                 {{ $posts->links() }}

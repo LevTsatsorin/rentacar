@@ -42,7 +42,7 @@
         @if ($cars->isEmpty())
             <p class="alert alert-warning">No se encontraron autos con esos criterios. Probá con otros filtros.</p>
         @else
-            <section class="row g-4">
+            <div class="row g-4">
                 @foreach ($cars as $car)
                     <article class="col-sm-6 col-lg-4">
                         <div class="card h-100 shadow-sm car-card">
@@ -62,7 +62,7 @@
                         </div>
                     </article>
                 @endforeach
-            </section>
+            </div>
 
             <nav aria-label="Paginación" class="mt-5">
                 {{ $cars->links() }}
