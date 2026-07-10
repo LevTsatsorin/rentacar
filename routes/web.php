@@ -8,6 +8,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -29,7 +30,12 @@ require __DIR__.'/auth.php';
 Route::middleware('auth')->group(function () {
     Route::get('cars/{car}/reservar', [BookingController::class, 'create'])->name('bookings.create');
     Route::post('cars/{car}/reservar', [BookingController::class, 'store'])->name('bookings.store');
+    Route::get('reservas', [BookingController::class, 'index'])->name('bookings.index');
     Route::get('reservas/{booking}', [BookingController::class, 'show'])->name('bookings.show');
+
+    Route::get('perfil', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('perfil/editar', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('perfil', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {

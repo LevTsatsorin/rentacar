@@ -9,6 +9,7 @@ use App\Models\Plan;
 use App\Models\User;
 use App\Services\BookingService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -50,6 +51,21 @@ class BookingController extends Controller
         }
 
         return to_route('bookings.show', $booking)->with('success', '¡Reserva confirmada con éxito!');
+    }
+
+    /**
+     * Lista todas las reservas del usuario autenticado.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
+    public function index(Request $request): View
+    {
+        /** @var User $user */
+        $user = $request->user();
+        $bookings = $user->bookings()->with('car', 'plan')->latest()->get();
+
+        return view('bookings.index', compact('bookings'));
     }
 
     /**

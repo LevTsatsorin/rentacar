@@ -3,10 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Booking;
-use App\Models\Car;
-use App\Models\Post;
-use App\Models\User;
+use App\Services\StatsService;
 use Illuminate\View\View;
 
 /**
@@ -15,19 +12,13 @@ use Illuminate\View\View;
 class AdminDashboardController extends Controller
 {
     /**
-     * Muestra el panel con el conteo de entradas, usuarios, autos y reservas.
+     * Muestra el panel con las estadísticas calculadas desde la base de datos.
      *
+     * @param  \App\Services\StatsService  $stats
      * @return \Illuminate\View\View
      */
-    public function index(): View
+    public function index(StatsService $stats): View
     {
-        $stats = [
-            'posts' => Post::withTrashed()->count(),
-            'users' => User::count(),
-            'cars' => Car::count(),
-            'bookings' => Booking::count(),
-        ];
-
-        return view('admin.dashboard', compact('stats'));
+        return view('admin.dashboard', ['stats' => $stats->forDashboard()]);
     }
 }

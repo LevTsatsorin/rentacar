@@ -58,4 +58,63 @@
             </article>
         </div>
     </section>
+
+    <section aria-labelledby="alquileres-title" class="mt-5">
+        <h2 id="alquileres-title" class="h4 mb-1">Actividad de alquileres</h2>
+        <p class="text-muted">Estadísticas calculadas en tiempo real desde la base de datos.</p>
+
+        <div class="row g-4 mt-1">
+            <article class="col-md-6 col-xl-3">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <p class="text-muted mb-1"><i class="bi bi-cash-coin text-success" aria-hidden="true"></i> Ingresos totales</p>
+                        <p class="h3 fw-bold mb-0">${{ number_format($stats['revenue'], 2) }}</p>
+                        <p class="text-muted small mb-0">Reservas confirmadas</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="col-md-6 col-xl-3">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <p class="text-muted mb-1"><i class="bi bi-trophy text-warning" aria-hidden="true"></i> Auto más alquilado</p>
+                        @if ($stats['topCar'])
+                            <p class="h5 fw-bold mb-0">{{ $stats['topCar']->full_name }}</p>
+                            <p class="text-muted small mb-0">{{ $stats['topCarCount'] }} reserva(s)</p>
+                        @else
+                            <p class="h5 fw-bold mb-0 text-muted">Sin datos</p>
+                        @endif
+                    </div>
+                </div>
+            </article>
+
+            <article class="col-md-6 col-xl-3">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <p class="text-muted mb-1"><i class="bi bi-calendar-heart text-info" aria-hidden="true"></i> Mes con mayor facturación</p>
+                        @if ($stats['topMonth'])
+                            <p class="h5 fw-bold mb-0">{{ $stats['topMonth']['label'] }}</p>
+                            <p class="text-muted small mb-0">${{ number_format($stats['topMonth']['total'], 2) }}</p>
+                        @else
+                            <p class="h5 fw-bold mb-0 text-muted">Sin datos</p>
+                        @endif
+                    </div>
+                </div>
+            </article>
+
+            <article class="col-md-6 col-xl-3">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <p class="text-muted mb-1"><i class="bi bi-star text-primary" aria-hidden="true"></i> Plan más contratado</p>
+                        @if ($stats['topPlan'])
+                            <p class="h5 fw-bold mb-0">{{ $stats['topPlan']->name }}</p>
+                            <p class="text-muted small mb-0">{{ $stats['topPlanCount'] }} reserva(s)</p>
+                        @else
+                            <p class="h5 fw-bold mb-0 text-muted">Sin datos</p>
+                        @endif
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
 @endsection

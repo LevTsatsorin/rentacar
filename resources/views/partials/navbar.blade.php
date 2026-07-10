@@ -49,6 +49,19 @@
                                     <li><hr class="dropdown-divider"></li>
                                 @endif
                                 <li>
+                                    <a class="dropdown-item" href="{{ route('profile.show') }}">
+                                        <i class="bi bi-person" aria-hidden="true"></i> Mi perfil
+                                    </a>
+                                </li>
+                                @unless (auth()->user()->isAdmin())
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('bookings.index') }}">
+                                            <i class="bi bi-calendar-check" aria-hidden="true"></i> Mis reservas
+                                        </a>
+                                    </li>
+                                @endunless
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
                                         <button type="submit" class="dropdown-item text-danger">Cerrar sesión</button>
