@@ -18,6 +18,7 @@ class Booking extends Model
     protected $fillable = [
         'user_id',
         'car_id',
+        'plan_id',
         'start_date',
         'end_date',
         'total_price',
@@ -53,6 +54,16 @@ class Booking extends Model
     public function car(): BelongsTo
     {
         return $this->belongsTo(Car::class);
+    }
+
+    /**
+     * Plan de alquiler aplicado a la reserva.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function plan(): BelongsTo
+    {
+        return $this->belongsTo(Plan::class);
     }
 
     /**
